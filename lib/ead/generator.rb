@@ -3,6 +3,7 @@ module EAD
   class Generator
 
     include Component
+    include Helpers::ArchDesc
     include Helpers::Header
 
     attr_reader :components, :ead, :flat_components

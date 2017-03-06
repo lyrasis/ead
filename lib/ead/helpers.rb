@@ -2,6 +2,15 @@ module EAD
 
   module Helpers
 
+    module ArchDesc
+
+      def set_language(language = "English", code = "eng")
+        @path.language = language
+        @path.langcode = code
+      end
+
+    end
+
     module Component
 
       def title
