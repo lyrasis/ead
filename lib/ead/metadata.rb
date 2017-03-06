@@ -119,6 +119,8 @@ module EAD
 
       t.title(proxy: [:eadheader, :filedesc, :titlestmt, :titleproper])
       t.title_number(proxy: [:eadheader, :filedesc, :titlestmt, :titleproper, :num])
+      t.publisher(proxy: [:eadheader, :filedesc, :publicationstmt, :publisher])
+      t.address(proxy: [:eadheader, :filedesc, :publicationstmt, :address, :addressline])
     end
 
     def to_ead_xml

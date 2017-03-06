@@ -16,8 +16,28 @@ module EAD
 
     module Header
 
+      def address
+        @path.address
+      end
+
+      def address=(address)
+        @path.address = address
+      end
+
+      def publisher
+        @path.publisher
+      end
+
+      def publisher=(publisher)
+        @path.publisher = publisher
+      end
+
       def title
         @path.title.first
+      end
+
+      def title=(title)
+        @path.title = title
       end
 
       def set_title(title, number = nil, separator = "")
