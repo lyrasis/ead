@@ -8,7 +8,7 @@ describe "EAD Metadata" do
   end
 
   after(:all) do
-    # $stdout.puts "\n#{@ead.to_ead_xml}"
+    $stdout.puts "\n#{@ead.to_ead_xml}"
   end
 
   describe "ead" do
@@ -94,6 +94,31 @@ describe "EAD Metadata" do
 
     let(:language) { "English" }
     let(:langcode) { "eng" }
+    let(:repository) { "Archives" }
+    let(:unitid) { "123456" }
+    let(:unittitle) { "Papers" }
+    let(:persons) {
+      [
+        { name: "A", role: "ive", source: "lcsh" },
+        { name: "B", role: "ivr", source: "lcsh" },
+        { name: "C", role: "ivr", source: "lcsh" },
+      ]
+    }
+    let(:corps) {
+[
+        { name: "X", role: "pro", source: "lcsh" },
+        { name: "Y", role: "pro", source: "lcsh" },
+      ]
+    }
+    let(:originations) {
+      [
+        { type: "persname", name: "A", role: "ive", source: "lcsh" },
+        { type: "persname", name: "B", role: "ivr", source: "lcsh" },
+        { type: "persname", name: "C", role: "ivr", source: "lcsh" },
+        { type: "corpname", name: "X", role: "pro", source: "lcsh" },
+        { type: "corpname", name: "Y", role: "pro", source: "lcsh" },
+      ]
+    }
 
      it "can assign language and langcode" do
       path = @ead.archdesc.did.langmaterial
@@ -101,7 +126,58 @@ describe "EAD Metadata" do
         path.language = language
         path.language.langcode = langcode
       }.to_not raise_error
-    end   
+    end
+
+    it "can assign a repository" do
+      expect {
+        @ead.archdesc.did.repository.corpname = repository
+      }.to_not raise_error
+    end
+
+    it "can assign a unitid" do
+      expect {
+        @ead.archdesc.did.unitid = unitid
+      }.to_not raise_error
+    end
+
+    it "can assign a unittitle" do
+      expect {
+        @ead.archdesc.did.unittitle = unittitle
+      }.to_not raise_error
+    end
+
+    it "can assign a unitdate" do
+      expect {
+        @ead.archdesc.did.unitdate = "2014"
+        @ead.archdesc.did.unitdate.normal = "2014"
+        @ead.archdesc.did.unitdate.type = "single"
+      }.to_not raise_error
+    end
+
+    it "can assign originations" do
+      # create an origination placeholder
+      @ead.archdesc.did.origination.label = "creator"
+      originations.each_with_index do |o, idx|
+        expect {
+          # initialize label b4 setting it
+          @ead.archdesc.did.origination(idx).label = nil
+          @ead.archdesc.did.origination(idx).label = "creator"
+          @ead.archdesc.did.origination(idx).send("#{o[:type]}=", o[:name])
+          path = @ead.archdesc.did.origination(idx).send(o[:type])
+          path.role = o[:role]
+          path.source = o[:source]
+        }.to_not raise_error
+      end
+      expect(@ead.archdesc.did.origination.count).to eq(5)
+    end
+
+    it "can assign physdesc" do
+      expect {
+        @ead.archdesc.did.physdesc.altrender = "whole"
+        @ead.archdesc.did.physdesc.extent = "3 cassettes"
+        @ead.archdesc.did.physdesc.extent.altrender = "materialtype"
+      }.to_not raise_error
+    end
 
   end
 

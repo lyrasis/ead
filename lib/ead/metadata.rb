@@ -68,6 +68,36 @@ module EAD
               t.langcode(path: { attribute: 'langcode' })
             }
           }
+
+          t.repository {
+            t.corpname
+          }
+
+          t.unitid
+          t.unittitle
+          t.unitdate {
+            t.normal(path: { attribute: 'normal' })
+            t.type(path: { attribute: 'type' })
+          }
+
+          t.origination {
+            t.label(path: { attribute: 'label' })
+            t.persname {
+              t.role(path: { attribute: 'role' })
+              t.source(path: { attribute: 'source' })
+            }
+            t.corpname {
+              t.role(path: { attribute: 'role' })
+              t.source(path: { attribute: 'source' })
+            }
+          }
+
+          t.physdesc {
+            t.altrender(path: { attribute: 'altrender' })
+            t.extent {
+              t.altrender(path: { attribute: 'altrender' })
+            }
+          }
         }
 
         # dsc
@@ -117,12 +147,16 @@ module EAD
         }
       }
 
+      # proxies
       t.title(proxy: [:eadheader, :filedesc, :titlestmt, :titleproper])
       t.title_number(proxy: [:eadheader, :filedesc, :titlestmt, :titleproper, :num])
       t.publisher(proxy: [:eadheader, :filedesc, :publicationstmt, :publisher])
       t.address(proxy: [:eadheader, :filedesc, :publicationstmt, :address, :addressline])
       t.language(proxy: [:archdesc, :did, :langmaterial, :language])
       t.langcode(proxy: [:archdesc, :did, :langmaterial, :language, :langcode])
+      t.repository(proxy: [:archdesc, :did, :repository, :corpname])
+      t.unitid(proxy: [:archdesc, :did, :unitid])
+      t.unittitle(proxy: [:archdesc, :did, :unittitle])
     end
 
     def to_ead_xml
