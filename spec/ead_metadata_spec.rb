@@ -119,6 +119,37 @@ describe "EAD Metadata" do
         { type: "corpname", name: "Y", role: "pro", source: "lcsh" },
       ]
     }
+    let(:odds) {
+      [
+        { head: "Summary", p: "Something, something ..." },
+        { head: "Publication Date", p: "2000." },
+        { head: "Something Else", p: "..." },
+      ]
+    }
+    let(:authorities) {
+      [
+        [
+          { type: "subject", name: "Subject 1", source: "lcsh" },
+          { type: "subject", name: "Subject 2", source: "lcsh" },
+          { type: "subject", name: "Subject 3", source: "lcsh" },
+        ],
+        [
+          { type: "geogname", name: "Geogname", source: "lcsh" }
+        ],
+        [
+          { type: "genreform", name: "Genreform", source: "lcsh" }
+        ],
+        [
+          { type: "persname", name: "Persname", source: "lcsh" }
+        ],
+        [
+          { type: "corpname", name: "Corpname 1", source: "lcsh" },
+          { type: "corpname", name: "Corpname 2", source: "lcsh" },
+          { type: "corpname", name: "Corpname 3", source: "lcsh" },
+          { type: "corpname", name: "Corpname 4", source: "lcsh" },
+        ],
+      ]
+    }
 
      it "can assign language and langcode" do
       path = @ead.archdesc.did.langmaterial
@@ -177,6 +208,56 @@ describe "EAD Metadata" do
         @ead.archdesc.did.physdesc.extent = "3 cassettes"
         @ead.archdesc.did.physdesc.extent.altrender = "materialtype"
       }.to_not raise_error
+    end
+
+    it "can add odd =)" do
+      # create odd placeholder
+      @ead.archdesc.odd.audience = "internal"
+      odds.each_with_index do |o, idx|
+        expect {
+          # initialize attribute before setting
+          @ead.archdesc.odd(idx).audience = nil
+          @ead.archdesc.odd(idx).audience = "internal"
+          @ead.archdesc.odd(idx).head = o[:head]
+          @ead.archdesc.odd(idx).p = o[:p]
+        }.to_not raise_error
+      end
+    end
+
+    it "can assign citation" do
+      expect {
+        @ead.archdesc.prefercite.audience = "internal"
+        @ead.archdesc.prefercite.head = "Preferred Citation"
+        @ead.archdesc.prefercite.p = "Cite ME!"
+      }.to_not raise_error
+    end
+
+    it "can assign related material" do
+      expect {
+        @ead.archdesc.relatedmaterial.audience = "internal"
+        @ead.archdesc.relatedmaterial.head = "Related Archival Materials"
+        @ead.archdesc.relatedmaterial.p = "Some stuff!"
+      }.to_not raise_error
+    end
+
+    it "can assign controlaccess" do
+      authorities.each do |auths|
+        auths.each_with_index do |a, idx|
+          expect {
+            # initialize source b4 setting it
+            if idx == 0
+              @ead.archdesc.controlaccess.send("#{a[:type]}=", a[:name])
+              @ead.archdesc.controlaccess.send("#{a[:type]}").source = a[:source]
+            else
+              @ead.archdesc.controlaccess.send(a[:type], idx).source = nil
+              @ead.archdesc.controlaccess.send(a[:type], idx).source = a[:source]
+              @ead.archdesc.controlaccess.send(a[:type], idx, a[:name])
+            end
+          }.to_not raise_error
+        end
+      end
+      expect(@ead.archdesc.controlaccess.subject.count).to eq(3)
+      expect(@ead.archdesc.controlaccess.corpname.count).to eq(4)
     end
 
   end

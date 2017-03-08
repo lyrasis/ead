@@ -100,6 +100,42 @@ module EAD
           }
         }
 
+        t.odd {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
+        t.prefercite {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
+        t.relatedmaterial {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
+        t.controlaccess {
+          t.subject {
+            t.source(path: { attribute: 'source' })
+          }
+          t.geogname {
+            t.source(path: { attribute: 'source' })
+          }
+          t.genreform {
+            t.source(path: { attribute: 'source' })
+          }
+          t.persname {
+            t.source(path: { attribute: 'source' })
+          }
+          t.corpname {
+            t.source(path: { attribute: 'source' })
+          }
+        }
+
         # dsc
         t.dsc {
           # c01
