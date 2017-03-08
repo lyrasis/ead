@@ -186,15 +186,18 @@ describe "EAD Metadata" do
     end
 
     it "can assign originations" do
-      # create an origination placeholder
-      @ead.archdesc.did.origination.label = "creator"
-      originations.each_with_index do |o, idx|
+      originations.each do |o|
         expect {
+          pos  = @ead.archdesc.did.origination.count
+          if pos == 0
+            # initialize first element
+            @ead.archdesc.did.origination.label = nil
+          end
           # initialize label b4 setting it
-          @ead.archdesc.did.origination(idx).label = nil
-          @ead.archdesc.did.origination(idx).label = "creator"
-          @ead.archdesc.did.origination(idx).send("#{o[:type]}=", o[:name])
-          path = @ead.archdesc.did.origination(idx).send(o[:type])
+          @ead.archdesc.did.origination(pos).label = nil
+          @ead.archdesc.did.origination(pos).label = "creator"
+          @ead.archdesc.did.origination(pos).send("#{o[:type]}=", o[:name])
+          path = @ead.archdesc.did.origination(pos).send(o[:type])
           path.role = o[:role]
           path.source = o[:source]
         }.to_not raise_error
@@ -211,15 +214,18 @@ describe "EAD Metadata" do
     end
 
     it "can add odd =)" do
-      # create odd placeholder
-      @ead.archdesc.odd.audience = "internal"
-      odds.each_with_index do |o, idx|
+      odds.each do |o|
         expect {
+          pos = @ead.archdesc.odd.count
+          if pos == 0
+            # initialize first element
+            @ead.archdesc.odd.audience = nil
+          end
           # initialize attribute before setting
-          @ead.archdesc.odd(idx).audience = nil
-          @ead.archdesc.odd(idx).audience = "internal"
-          @ead.archdesc.odd(idx).head = o[:head]
-          @ead.archdesc.odd(idx).p = o[:p]
+          @ead.archdesc.odd(pos).audience = nil
+          @ead.archdesc.odd(pos).audience = "internal"
+          @ead.archdesc.odd(pos).head = o[:head]
+          @ead.archdesc.odd(pos).p = o[:p]
         }.to_not raise_error
       end
     end
@@ -242,16 +248,17 @@ describe "EAD Metadata" do
 
     it "can assign controlaccess" do
       authorities.each do |auths|
-        auths.each_with_index do |a, idx|
+        auths.each do |a|
           expect {
             # initialize source b4 setting it
-            if idx == 0
+            pos = @ead.archdesc.controlaccess.send("#{a[:type]}").count
+            if pos == 0
               @ead.archdesc.controlaccess.send("#{a[:type]}=", a[:name])
               @ead.archdesc.controlaccess.send("#{a[:type]}").source = a[:source]
             else
-              @ead.archdesc.controlaccess.send(a[:type], idx).source = nil
-              @ead.archdesc.controlaccess.send(a[:type], idx).source = a[:source]
-              @ead.archdesc.controlaccess.send(a[:type], idx, a[:name])
+              @ead.archdesc.controlaccess.send(a[:type], pos).source = nil
+              @ead.archdesc.controlaccess.send(a[:type], pos).source = a[:source]
+              @ead.archdesc.controlaccess.send(a[:type], pos, a[:name])
             end
           }.to_not raise_error
         end
