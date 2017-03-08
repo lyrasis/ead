@@ -128,26 +128,16 @@ describe "EAD Metadata" do
     }
     let(:authorities) {
       [
-        [
-          { type: "subject", name: "Subject 1", source: "lcsh" },
-          { type: "subject", name: "Subject 2", source: "lcsh" },
-          { type: "subject", name: "Subject 3", source: "lcsh" },
-        ],
-        [
-          { type: "geogname", name: "Geogname", source: "lcsh" }
-        ],
-        [
-          { type: "genreform", name: "Genreform", source: "lcsh" }
-        ],
-        [
-          { type: "persname", name: "Persname", source: "lcsh" }
-        ],
-        [
-          { type: "corpname", name: "Corpname 1", source: "lcsh" },
-          { type: "corpname", name: "Corpname 2", source: "lcsh" },
-          { type: "corpname", name: "Corpname 3", source: "lcsh" },
-          { type: "corpname", name: "Corpname 4", source: "lcsh" },
-        ],
+        { type: "subject", name: "Subject 1", source: "lcsh" },
+        { type: "subject", name: "Subject 2", source: "lcsh" },
+        { type: "subject", name: "Subject 3", source: "lcsh" },
+        { type: "geogname", name: "Geogname", source: "lcsh" },
+        { type: "genreform", name: "Genreform", source: "lcsh" },
+        { type: "persname", name: "Persname", source: "lcsh" },
+        { type: "corpname", name: "Corpname 1", source: "lcsh" },
+        { type: "corpname", name: "Corpname 2", source: "lcsh" },
+        { type: "corpname", name: "Corpname 3", source: "lcsh" },
+        { type: "corpname", name: "Corpname 4", source: "lcsh" },
       ]
     }
 
@@ -247,21 +237,19 @@ describe "EAD Metadata" do
     end
 
     it "can assign controlaccess" do
-      authorities.each do |auths|
-        auths.each do |a|
-          expect {
-            # initialize source b4 setting it
-            pos = @ead.archdesc.controlaccess.send("#{a[:type]}").count
-            if pos == 0
-              @ead.archdesc.controlaccess.send("#{a[:type]}=", a[:name])
-              @ead.archdesc.controlaccess.send("#{a[:type]}").source = a[:source]
-            else
-              @ead.archdesc.controlaccess.send(a[:type], pos).source = nil
-              @ead.archdesc.controlaccess.send(a[:type], pos).source = a[:source]
-              @ead.archdesc.controlaccess.send(a[:type], pos, a[:name])
-            end
-          }.to_not raise_error
-        end
+      authorities.each do |a|
+        expect {
+          # initialize source b4 setting it
+          pos = @ead.archdesc.controlaccess.send("#{a[:type]}").count
+          if pos == 0
+            @ead.archdesc.controlaccess.send("#{a[:type]}=", a[:name])
+            @ead.archdesc.controlaccess.send("#{a[:type]}").source = a[:source]
+          else
+            @ead.archdesc.controlaccess.send(a[:type], pos).source = nil
+            @ead.archdesc.controlaccess.send(a[:type], pos).source = a[:source]
+            @ead.archdesc.controlaccess.send(a[:type], pos, a[:name])
+          end
+        }.to_not raise_error
       end
       expect(@ead.archdesc.controlaccess.subject.count).to eq(3)
       expect(@ead.archdesc.controlaccess.corpname.count).to eq(4)

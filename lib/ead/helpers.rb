@@ -4,9 +4,90 @@ module EAD
 
     module ArchDesc
 
+      def add_authorities(authorities = [])
+        authorities.each do |a|
+          pos = @ead.archdesc.controlaccess.send("#{a[:type]}").count
+          if pos == 0
+            @ead.archdesc.controlaccess.send("#{a[:type]}=", a[:name])
+            @ead.archdesc.controlaccess.send("#{a[:type]}").source = a[:source]
+          else
+            @ead.archdesc.controlaccess.send(a[:type], pos).source = nil
+            @ead.archdesc.controlaccess.send(a[:type], pos).source = a[:source]
+            @ead.archdesc.controlaccess.send(a[:type], pos, a[:name])
+          end
+        end
+      end
+
+      # TODO DRY
+      def add_odds(odds = [])
+        odds.each do |odd|
+          odd.each do |head, p|
+            pos = @ead.archdesc.odd.count
+            if pos == 0
+              # initialize odd
+              @ead.archdesc.odd.audience = nil
+            end
+            @ead.archdesc.odd(pos).audience = nil
+            @ead.archdesc.odd(pos).audience = "internal"
+            @ead.archdesc.odd(pos).head = head
+            @ead.archdesc.odd(pos).p = p
+          end
+        end
+      end
+
+      # TODO DRY
+      def add_related_materials(related_materials = [])
+        related_materials.each do |related_material|
+          related_material.each do |head, p|
+            pos = @ead.archdesc.relatedmaterial.count
+            if pos == 0
+              # initialize relatedmaterial
+              @ead.archdesc.relatedmaterial.audience = nil
+            end
+            @ead.archdesc.relatedmaterial(pos).audience = nil
+            @ead.archdesc.relatedmaterial(pos).audience = "internal"
+            @ead.archdesc.relatedmaterial(pos).head = head
+            @ead.archdesc.relatedmaterial(pos).p = p
+          end
+        end
+      end
+
+      def prefercite
+        @ead.archdesc.prefercite.p.first
+      end
+
+      def prefercite=(prefercite)
+        @ead.archdesc.prefercite.head = "Preferred Citation"
+        @ead.archdesc.prefercite.p = prefercite
+      end
+
+      def repository
+        @path.repository.first
+      end
+
+      def repository=(repository)
+        @path.repository = repository
+      end
+
       def set_language(language = "English", code = "eng")
         @path.language = language
         @path.langcode = code
+      end
+
+      def unitid
+        @path.unitid.first
+      end
+
+      def unitid=(unitid)
+        @path.unitid = unitid
+      end
+
+      def unittitle
+        @path.unittitle.first
+      end
+
+      def unittitle=(unittitle)
+        @path.unittitle = unittitle
       end
 
     end
