@@ -35,6 +35,23 @@ module EAD
         end
       end
 
+      def add_originations(originations = [])
+        originations.each do |o|
+          pos  = @ead.archdesc.did.origination.count
+          if pos == 0
+            # initialize origination
+            @ead.archdesc.did.origination.label = nil
+          end
+          # initialize label b4 setting it
+          @ead.archdesc.did.origination(pos).label = nil
+          @ead.archdesc.did.origination(pos).label = "creator"
+          @ead.archdesc.did.origination(pos).send("#{o[:type]}=", o[:name])
+          path = @ead.archdesc.did.origination(pos).send(o[:type])
+          path.role = o[:role]
+          path.source = o[:source]
+        end
+      end
+
       # TODO DRY
       def add_related_materials(related_materials = [])
         related_materials.each do |related_material|
