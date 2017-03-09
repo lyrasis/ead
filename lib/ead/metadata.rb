@@ -153,6 +153,7 @@ module EAD
                 t.physfacet {
                   t.id(path: { attribute: 'id' })
                   t.corpname
+                  t.date
                 }
               }
               t.container {
@@ -177,6 +178,7 @@ module EAD
                   t.physfacet {
                     t.id(path: { attribute: 'id' })
                     t.corpname
+                    t.date
                   }
                 }
                 t.container {
@@ -201,6 +203,7 @@ module EAD
                     t.physfacet {
                       t.id(path: { attribute: 'id' })
                       t.corpname
+                      t.date
                     }
                   }
                   t.container {

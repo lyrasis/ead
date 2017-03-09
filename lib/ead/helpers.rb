@@ -138,6 +138,51 @@ module EAD
         end
       end
 
+      def add_extent(extent, altrender = "whole", extent_altrender = "materialtype spaceoccupied")
+        pos = @path.did.physdesc.count
+        if pos == 0
+          # initialize physdesc
+          @path.did.physdesc.altrender = nil
+        end
+        @path.did.physdesc(pos).altrender = nil
+        @path.did.physdesc(pos).altrender = altrender
+        @path.did.physdesc(pos).extent.altrender = extent_altrender
+        @path.did.physdesc(pos).extent = extent
+      end
+
+      def add_physfacet(physfacet)
+        pos = @path.did.physdesc.count
+        if pos == 0
+          # initialize physdesc
+          @path.did.physdesc.altrender = nil
+        end
+        @path.did.physdesc(pos).physfacet = nil
+        @path.did.physdesc(pos).physfacet = physfacet
+      end
+
+      def add_physfacet_date(physfacet, date)
+        pos = @path.did.physdesc.count
+        if pos == 0
+          # initialize physdesc
+          @path.did.physdesc.altrender = nil
+        end
+        @path.did.physdesc(pos).physfacet = nil
+        @path.did.physdesc(pos).physfacet = physfacet
+        @path.did.physdesc(pos).physfacet.date = date.to_s
+      end
+
+
+      def add_physfacet_corpname(physfacet, corpname)
+        pos = @path.did.physdesc.count
+        if pos == 0
+          # initialize physdesc
+          @path.did.physdesc.altrender = nil
+        end
+        @path.did.physdesc(pos).physfacet = nil
+        @path.did.physdesc(pos).physfacet = physfacet
+        @path.did.physdesc(pos).physfacet.corpname = corpname
+      end
+
       def title
         @path.did.unittitle.first
       end
