@@ -292,6 +292,27 @@ describe "EAD Metadata" do
         assign(path.did, :unittitle, data[:c01_2][:title])
       end
 
+      it "can assign containers to c01 component" do
+        [
+          { id: "1", barcode: "1", number: "1" },
+          { id: "2", barcode: "2", number: "2" },
+          { id: "3", barcode: "3", number: "3" },
+        ].each do |c|
+          pos = @ead.archdesc.dsc.c01(0).did.container.count
+          if pos == 0
+            @ead.archdesc.dsc.c01(0).did.container.id = nil
+          end
+           # initialize label b4 setting it
+          expect {
+            @ead.archdesc.dsc.c01(0).did.container(pos).id    = nil
+            @ead.archdesc.dsc.c01(0).did.container(pos).id    = c[:id]
+            @ead.archdesc.dsc.c01(0).did.container(pos).label = "Mixed Materials (#{c[:barcode]})"
+            @ead.archdesc.dsc.c01(0).did.container(pos).type  = "Box"
+            @ead.archdesc.dsc.c01(0).did.send(:container, pos, c[:number])
+          }.to_not raise_error
+        end
+      end
+
       describe "c02" do
 
         it "can initialize a c02 component tree" do

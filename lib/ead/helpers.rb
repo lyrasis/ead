@@ -4,6 +4,7 @@ module EAD
 
     module ArchDesc
 
+      # [ { type: "..." name: "...", source: "..." } ]
       def add_authorities(authorities = [])
         authorities.each do |a|
           pos = @ead.archdesc.controlaccess.send("#{a[:type]}").count
@@ -19,6 +20,7 @@ module EAD
       end
 
       # TODO DRY
+      # [ { "Header title" => "Paragraph content" } ]
       def add_odds(odds = [])
         odds.each do |odd|
           odd.each do |head, p|
@@ -35,6 +37,7 @@ module EAD
         end
       end
 
+      # [ { type: "..." name: "...", role: "...", source: "..." } ]
       def add_originations(originations = [])
         originations.each do |o|
           pos  = @ead.archdesc.did.origination.count
@@ -53,6 +56,7 @@ module EAD
       end
 
       # TODO DRY
+      # [ { "Header title" => "Paragraph content" } ]
       def add_related_materials(related_materials = [])
         related_materials.each do |related_material|
           related_material.each do |head, p|
@@ -110,6 +114,29 @@ module EAD
     end
 
     module Component
+
+      # [ { id: "...", barcode: "...", number: "..." } ] OR
+      # [ { id: "...", barcode: "...", number: "...", label_type: "...", type: "..." } ]
+      def add_containers(containers = [], label_type = "Mixed Materials", type = "Box")
+        containers.each do |c|
+          label = c.has_key?(:label_type) ? c[:label_type] : label_type
+          # aspace formatting gunk
+          label = "#{label} (#{c[:barcode]})" if c.has_key? :barcode
+          type  = c.has_key?(:type) ? c[:type] : type
+
+          pos = @path.did.container.count
+          if pos == 0
+            # initialize container
+            @path.did.container.id = nil
+          end
+          # initialize id b4 setting it
+          @path.did.container(pos).id    = nil
+          @path.did.container(pos).id    = c[:id].to_s
+          @path.did.container(pos).label = label
+          @path.did.container(pos).type  = type
+          @path.did.send(:container, pos, c[:number].to_s)
+        end
+      end
 
       def title
         @path.did.unittitle.first
