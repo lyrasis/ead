@@ -141,6 +141,8 @@ module EAD
           # c01
           t.c01 {
             t.id(path: { attribute: 'id' })
+            t.level(path: { attribute: 'level' })
+            t.otherlevel(path: { attribute: 'otherlevel' })
             t.did {
               t.unittitle
               t.physdesc {
@@ -148,12 +150,23 @@ module EAD
                 t.extent {
                   t.altrender(path: { attribute: 'altrender' })
                 }
+                t.physfacet {
+                  t.id(path: { attribute: 'id' })
+                  t.corpname
+                }
+              }
+              t.container {
+                t.id(path: { attribute: 'id' })
+                t.label(path: { attribute: 'label' })
+                t.type(path: { attribute: 'type' })
               }
             }
 
             # c02 (same as c01)
             t.c02 {
               t.id(path: { attribute: 'id' })
+              t.level(path: { attribute: 'level' })
+              t.otherlevel(path: { attribute: 'otherlevel' })
               t.did {
                 t.unittitle
                 t.physdesc {
@@ -161,12 +174,23 @@ module EAD
                   t.extent {
                     t.altrender(path: { attribute: 'altrender' })
                   }
+                  t.physfacet {
+                    t.id(path: { attribute: 'id' })
+                    t.corpname
+                  }
+                }
+                t.container {
+                  t.id(path: { attribute: 'id' })
+                  t.label(path: { attribute: 'label' })
+                  t.type(path: { attribute: 'type' })
                 }
               }
 
               # c03 (same as c01)
               t.c03 {
                 t.id(path: { attribute: 'id' })
+                t.level(path: { attribute: 'level' })
+                t.otherlevel(path: { attribute: 'otherlevel' })
                 t.did {
                   t.unittitle
                   t.physdesc {
@@ -174,13 +198,22 @@ module EAD
                     t.extent {
                       t.altrender(path: { attribute: 'altrender' })
                     }
+                    t.physfacet {
+                      t.id(path: { attribute: 'id' })
+                      t.corpname
+                    }
+                  }
+                  t.container {
+                    t.id(path: { attribute: 'id' })
+                    t.label(path: { attribute: 'label' })
+                    t.type(path: { attribute: 'type' })
                   }
                 }
 
-              }              
-            }
-          }
-        }
+              } # END c03
+            } # END c02
+          } # END c01
+        } # END dsc
       }
 
       # proxies
