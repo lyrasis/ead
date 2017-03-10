@@ -19,6 +19,13 @@ module EAD
         end
       end
 
+      def add_extent(extent, altrender = "whole", extent_altrender = "materialtype spaceoccupied")
+        @ead.archdesc.did.physdesc.altrender = nil
+        @ead.archdesc.did.physdesc.altrender = altrender
+        @ead.archdesc.did.physdesc.extent.altrender = extent_altrender
+        @ead.archdesc.did.physdesc.extent = extent
+      end
+
       # TODO DRY
       # [ { "Header title" => "Paragraph content" } ]
       def add_odds(odds = [])
@@ -93,6 +100,19 @@ module EAD
       def set_language(language = "English", code = "eng")
         @path.language = language
         @path.langcode = code
+      end
+
+      def unitdate=(date)
+        pos = @ead.archdesc.did.unitdate.count
+        if pos == 0
+          # initialize unitdate
+          @ead.archdesc.did.unitdate.type = nil
+        end
+        @ead.archdesc.did.unitdate(pos).type   = nil
+        @ead.archdesc.did.unitdate(pos).type   = "inclusive"
+        d = "#{Date.parse(date).to_s}/#{Date.parse(date).to_s}" rescue nil
+        @ead.archdesc.did.unitdate(pos).normal = d
+        @ead.archdesc.did.send(:unitdate, pos, date)
       end
 
       def unitid
