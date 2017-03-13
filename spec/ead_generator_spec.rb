@@ -65,8 +65,8 @@ describe "EAD Generator" do
 
     it "can assign c01 title" do
       c01 = @ead.find_component_by_id('a456')
-      c01.set_title "A c01 title!"
-      expect(c01.title).to eq ("A c01 title!")
+      c01.unittitle = "A c01 title!"
+      expect(c01.unittitle).to eq ("A c01 title!")
     end
 
     it "can add c02 components by parent id" do
