@@ -4,26 +4,8 @@ module EAD
 
     module ArchDesc
 
-      # [ { type: "..." name: "...", source: "..." } ]
-      def add_authorities(authorities = [])
-        authorities.each do |a|
-          pos = @ead.archdesc.controlaccess.send("#{a[:type]}").count
-          if pos == 0
-            @ead.archdesc.controlaccess.send("#{a[:type]}=", a[:name])
-            @ead.archdesc.controlaccess.send("#{a[:type]}").source = a[:source]
-          else
-            @ead.archdesc.controlaccess.send(a[:type], pos).source = nil
-            @ead.archdesc.controlaccess.send(a[:type], pos).source = a[:source]
-            @ead.archdesc.controlaccess.send(a[:type], pos, a[:name])
-          end
-        end
-      end
-
-      def add_extent(extent, altrender = "whole", extent_altrender = "materialtype spaceoccupied")
-        @ead.archdesc.did.physdesc.altrender = nil
-        @ead.archdesc.did.physdesc.altrender = altrender
-        @ead.archdesc.did.physdesc.extent.altrender = extent_altrender
-        @ead.archdesc.did.physdesc.extent = extent
+      def description_path
+        @ead.archdesc
       end
 
       # TODO DRY
@@ -209,6 +191,32 @@ module EAD
 
       def set_title(title)
         @path.did.unittitle = title
+      end
+
+    end
+
+    module Description
+
+      # [ { type: "..." name: "...", source: "..." } ]
+      def add_authorities(authorities = [])
+        authorities.each do |a|
+          pos = description_path.controlaccess.send("#{a[:type]}").count
+          if pos == 0
+            description_path.controlaccess.send("#{a[:type]}=", a[:name])
+            description_path.controlaccess.send("#{a[:type]}").source = a[:source]
+          else
+            description_path.controlaccess.send(a[:type], pos).source = nil
+            description_path.controlaccess.send(a[:type], pos).source = a[:source]
+            description_path.controlaccess.send(a[:type], pos, a[:name])
+          end
+        end
+      end
+
+      def add_extent(extent, altrender = "whole", extent_altrender = "materialtype spaceoccupied")
+        description_path.did.physdesc.altrender = nil
+        description_path.did.physdesc.altrender = altrender
+        description_path.did.physdesc.extent.altrender = extent_altrender
+        description_path.did.physdesc.extent = extent
       end
 
     end

@@ -66,19 +66,24 @@ module EAD
     class C01
 
       include Helpers::Component
+      include Helpers::Description
 
       attr_reader :components, :id, :level, :path
 
       def initialize(ead, id = nil)
         @ead        = ead
         @components = [] # c02 children
-        @id         = id ? id : SecureRandom.hex
+        @id         = id ? id.to_s : SecureRandom.hex
         @level      = 1
         @path       = nil
         @position   = nil
         
         init_tree_position(@id)
         @path = @ead.archdesc.dsc.c01(@position)
+      end
+
+      def description_path
+        @path
       end
 
       private
@@ -101,19 +106,24 @@ module EAD
     class C02
 
       include Helpers::Component
+      include Helpers::Description
 
       attr_reader :components, :id, :level, :path
 
       def initialize(ead, parent_idx, id = nil)
         @ead        = ead
         @components = [] # c03 children
-        @id         = id ? id : SecureRandom.hex
+        @id         = id ? id.to_s : SecureRandom.hex
         @level      = 2
         @path       = nil
         @position   = nil
 
         init_tree_position(@id, parent_idx)
         @path = @ead.archdesc.dsc.c01(parent_idx).c02(@position)
+      end
+
+      def description_path
+        @path
       end
 
       private
@@ -136,18 +146,23 @@ module EAD
     class C03
 
       include Helpers::Component
+      include Helpers::Description
 
       attr_reader :id, :level, :path
 
       def initialize(ead, ancestor_idx, parent_idx, id = nil)
         @ead      = ead
-        @id       = id ? id : SecureRandom.hex
+        @id       = id ? id.to_s : SecureRandom.hex
         @level    = 3
         @path     = nil
         @position = nil
         
         init_tree_position(@id, ancestor_idx, parent_idx)
         @path = @ead.archdesc.dsc.c01(ancestor_idx).c02(parent_idx).c03(@position) 
+      end
+
+      def description_path
+        @path
       end
 
       def init_tree_position(id, ancestor_idx, parent_idx)

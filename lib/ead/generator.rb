@@ -4,6 +4,7 @@ module EAD
 
     include Component
     include Helpers::ArchDesc
+    include Helpers::Description
     include Helpers::Header
 
     attr_reader :components, :ead, :flat_components
