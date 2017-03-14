@@ -14,10 +14,22 @@ describe "EAD Generator" do
   describe "header" do
 
     let(:title) { "A title!" }
+    let(:address) { ["123 A St.", "Sometown", "CA"] }
+    let(:publisher) { "State Archives" }
 
     it "can set title" do
       @ead.set_title title, 1, " "
       expect(@ead.title).to eq("A title! 1")
+    end
+
+    it "can set address" do
+      @ead.address = address
+      expect(@ead.address.count).to eq(3)
+    end
+
+    it "can set publisher" do
+      @ead.publisher = publisher
+      expect(@ead.publisher).to eq(publisher)
     end
 
   end

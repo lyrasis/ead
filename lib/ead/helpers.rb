@@ -213,7 +213,7 @@ module EAD
       end
 
       def publisher
-        header_path.publisher
+        header_path.publisher.first
       end
 
       def publisher=(publisher)
