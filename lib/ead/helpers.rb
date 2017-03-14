@@ -97,7 +97,7 @@ module EAD
 
       # TODO DRY
       # [ { "Header title" => "Paragraph content" } ]
-      def add_odds(odds = [])
+      def add_odds(odds = [], internal = true)
         odds.each do |odd|
           odd.each do |head, p|
             pos = description_path.odd.count
@@ -106,7 +106,7 @@ module EAD
               description_path.odd.audience = nil
             end
             description_path.odd(pos).audience = nil
-            description_path.odd(pos).audience = "internal"
+            description_path.odd(pos).audience = "internal" if internal
             description_path.odd(pos).head = head
             description_path.odd(pos).p = p
           end
@@ -133,7 +133,7 @@ module EAD
 
       # TODO DRY
       # [ { "Header title" => "Paragraph content" } ]
-      def add_related_materials(related_materials = [])
+      def add_related_materials(related_materials = [], internal = true)
         related_materials.each do |related_material|
           related_material.each do |head, p|
             pos = description_path.relatedmaterial.count
@@ -142,7 +142,7 @@ module EAD
               description_path.relatedmaterial.audience = nil
             end
             description_path.relatedmaterial(pos).audience = nil
-            description_path.relatedmaterial(pos).audience = "internal"
+            description_path.relatedmaterial(pos).audience = "internal" if internal
             description_path.relatedmaterial(pos).head = head
             description_path.relatedmaterial(pos).p = p
           end
