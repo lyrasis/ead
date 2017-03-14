@@ -20,9 +20,8 @@ module EAD
       @ead.archdesc
     end
 
-    # root because all header elements are proxied from root
     def header_path
-      @ead
+      @ead.eadheader.filedesc
     end
 
     def to_xml

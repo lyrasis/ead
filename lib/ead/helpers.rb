@@ -205,32 +205,42 @@ module EAD
     module Header
 
       def address
-        header_path.address
+        header_path.publicationstmt.address.addressline
       end
 
       def address=(address)
-        header_path.address = address
+        header_path.publicationstmt.address.addressline = address
+      end
+
+      def note
+        header_path.notestmt.note.p.first
       end
 
       def publisher
-        header_path.publisher.first
+        header_path.publicationstmt.publisher.first
       end
 
       def publisher=(publisher)
-        header_path.publisher = publisher
+        header_path.publicationstmt.publisher = publisher
       end
 
       def title
-        header_path.title.first
+        header_path.titlestmt.titleproper.first
       end
 
       def title=(title)
-        header_path.title = title
+        header_path.titlestmt.titleproper = title
+      end
+
+      def set_note(note, type = nil, number = nil, separator = "")
+        header_path.notestmt.note.p     = "#{note}#{separator}"
+        header_path.notestmt.note.type  = type if type
+        header_path.notestmt.note.p.num = number.to_s if number
       end
 
       def set_title(title, number = nil, separator = "")
-        header_path.title        = "#{title}#{separator}"
-        header_path.title_number = "#{number.to_s}" if number
+        header_path.titlestmt.titleproper     = "#{title}#{separator}"
+        header_path.titlestmt.titleproper.num = "#{number.to_s}" if number
       end
 
     end

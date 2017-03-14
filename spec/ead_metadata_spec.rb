@@ -50,7 +50,6 @@ describe "EAD Metadata" do
       expect {
         assign(path, :titleproper, "#{title} ")
         assign(path.titleproper, :num, '1')
-        assign(@ead.title, :num, '2')
       }.to_not raise_error
 
       expect(@ead.term_values(*title_terms)[0]).to match(title)

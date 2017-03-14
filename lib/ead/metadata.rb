@@ -227,17 +227,6 @@ module EAD
           } # END c01
         } # END dsc
       }
-
-      # proxies
-      t.title(proxy: [:eadheader, :filedesc, :titlestmt, :titleproper])
-      t.title_number(proxy: [:eadheader, :filedesc, :titlestmt, :titleproper, :num])
-      t.publisher(proxy: [:eadheader, :filedesc, :publicationstmt, :publisher])
-      t.address(proxy: [:eadheader, :filedesc, :publicationstmt, :address, :addressline])
-      t.language(proxy: [:archdesc, :did, :langmaterial, :language])
-      t.langcode(proxy: [:archdesc, :did, :langmaterial, :language, :langcode])
-      t.repository(proxy: [:archdesc, :did, :repository, :corpname])
-      t.unitid(proxy: [:archdesc, :did, :unitid])
-      t.unittitle(proxy: [:archdesc, :did, :unittitle])
     end
 
     def to_ead_xml

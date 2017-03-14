@@ -32,6 +32,11 @@ describe "EAD Generator" do
       expect(@ead.publisher).to eq(publisher)
     end
 
+    it "can set note" do
+      @ead.set_note "A note with number", "bpg", "123", " "
+      expect(@ead.note).to eq("A note with number 123")
+    end
+
   end
 
   describe "components" do
