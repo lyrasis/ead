@@ -21,7 +21,7 @@ module EAD
     end
 
     def header_path
-      @ead.eadheader.filedesc
+      @ead.eadheader
     end
 
     def to_xml

@@ -205,53 +205,64 @@ module EAD
     module Header
 
       def address
-        header_path.publicationstmt.address.addressline
+        header_path.filedesc.publicationstmt.address.addressline
       end
 
       def address=(address)
-        header_path.publicationstmt.address.addressline = address
+        header_path.filedesc.publicationstmt.address.addressline = address
       end
 
-      # path from root
+      def descrules
+        header_path.profiledesc.descrules.first
+      end
+
+      def descrules=(descrules)
+        header_path.profiledesc.descrules = descrules
+      end
+
       def eadid
-        @ead.eadheader.eadid.first
+        header_path.eadid.first
       end
 
-      # path from root
       def eadid=(eadid)
-        @ead.eadheader.eadid = eadid
+        header_path.eadid = eadid
       end
 
       def note
-        header_path.notestmt.note.p.first
+        header_path.filedesc.notestmt.note.p.first
       end
 
       def publisher
-        header_path.publicationstmt.publisher.first
+        header_path.filedesc.publicationstmt.publisher.first
       end
 
       def publisher=(publisher)
-        header_path.publicationstmt.publisher = publisher
+        header_path.filedesc.publicationstmt.publisher = publisher
       end
 
       def title
-        header_path.titlestmt.titleproper.first
+        header_path.filedesc.titlestmt.titleproper.first
       end
 
       def title=(title)
-        header_path.titlestmt.titleproper = title
+        header_path.filedesc.titlestmt.titleproper = title
+      end
+
+      def set_create_date(date, message = nil)
+        header_path.profiledesc.creation = message if message
+        header_path.profiledesc.creation.date = date.to_s
       end
 
       def set_note(note, type = nil, number = nil, separator = "", number_type = nil)
-        header_path.notestmt.note.p          = "#{note}#{separator}"
-        header_path.notestmt.note.type       = type if type
-        header_path.notestmt.note.p.num      = number.to_s if number
-        header_path.notestmt.note.p.num.type = number_type if number_type
+        header_path.filedesc.notestmt.note.p          = "#{note}#{separator}"
+        header_path.filedesc.notestmt.note.type       = type if type
+        header_path.filedesc.notestmt.note.p.num      = number.to_s if number
+        header_path.filedesc.notestmt.note.p.num.type = number_type if number_type
       end
 
       def set_title(title, number = nil, separator = "")
-        header_path.titlestmt.titleproper     = "#{title}#{separator}"
-        header_path.titlestmt.titleproper.num = "#{number.to_s}" if number
+        header_path.filedesc.titlestmt.titleproper     = "#{title}#{separator}"
+        header_path.filedesc.titlestmt.titleproper.num = "#{number.to_s}" if number
       end
 
     end
