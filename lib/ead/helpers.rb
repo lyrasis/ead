@@ -6,7 +6,7 @@ module EAD
 
       # [ { id: "...", barcode: "...", number: "..." } ] OR
       # [ { id: "...", barcode: "...", number: "...", label_type: "...", type: "..." } ]
-      def add_containers(containers = [], label_type = "Mixed Materials", type = "Box")
+      def add_containers(containers = [], label_type = "mixed_materials", type = "Box")
         containers.each do |c|
           label = c.has_key?(:label_type) ? c[:label_type] : label_type
           # aspace formatting gunk
