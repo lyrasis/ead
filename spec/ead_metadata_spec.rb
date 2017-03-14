@@ -27,6 +27,8 @@ describe "EAD Metadata" do
     let(:publisher) { "publisher" }
     let(:publisher_terms) { [:eadheader, :filedesc, :publicationstmt, :publisher] }
 
+    let(:notestmt_terms) { [:eadheader, :filedesc, :notestmt, :note, :p] }
+
     let(:address) {
       [
         '123456 Street',
@@ -61,6 +63,17 @@ describe "EAD Metadata" do
       }.to_not raise_error
 
       expect(@ead.term_values(*publisher_terms)[0]).to eq(publisher)
+    end
+
+    it "can assign note statement with number" do
+      path = @ead.eadheader.filedesc.notestmt.note
+      expect {
+        assign(path, :p, "A note with a num: ")
+        assign(path, :type, "bpg")
+        assign(path.p, :num, "123")
+      }.to_not raise_error
+
+      expect(@ead.term_values(*notestmt_terms)[0]).to eq("A note with a num: 123")
     end
 
     it "can assign address and extptr" do

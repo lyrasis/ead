@@ -50,6 +50,15 @@ module EAD
               }
             }
           }
+
+          t.notestmt {
+            t.note {
+              t.type(path: { attribute: "type" })
+              t.p_ {
+                t.num
+              }
+            }
+          }
         }
 
         t.profiledesc {
