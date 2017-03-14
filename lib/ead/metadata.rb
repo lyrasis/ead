@@ -55,7 +55,9 @@ module EAD
             t.note {
               t.type(path: { attribute: "type" })
               t.p_ {
-                t.num
+                t.num {
+                  t.type(path: { attribute: "type" })
+                }
               }
             }
           }

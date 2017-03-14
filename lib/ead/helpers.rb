@@ -232,10 +232,11 @@ module EAD
         header_path.titlestmt.titleproper = title
       end
 
-      def set_note(note, type = nil, number = nil, separator = "")
-        header_path.notestmt.note.p     = "#{note}#{separator}"
-        header_path.notestmt.note.type  = type if type
-        header_path.notestmt.note.p.num = number.to_s if number
+      def set_note(note, type = nil, number = nil, separator = "", number_type = nil)
+        header_path.notestmt.note.p          = "#{note}#{separator}"
+        header_path.notestmt.note.type       = type if type
+        header_path.notestmt.note.p.num      = number.to_s if number
+        header_path.notestmt.note.p.num.type = number_type if number_type
       end
 
       def set_title(title, number = nil, separator = "")
