@@ -212,6 +212,16 @@ module EAD
         header_path.publicationstmt.address.addressline = address
       end
 
+      # path from root
+      def eadid
+        @ead.eadheader.eadid.first
+      end
+
+      # path from root
+      def eadid=(eadid)
+        @ead.eadheader.eadid = eadid
+      end
+
       def note
         header_path.notestmt.note.p.first
       end
