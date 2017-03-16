@@ -56,6 +56,23 @@ describe "EAD Metadata" do
       expect(@ead.term_values(*title_terms)[0]).to match(title)
     end
 
+    it "can assign filing title" do
+      path = @ead.eadheader.filedesc.titlestmt
+      expect {
+        assign(path, :filing, "#{title} ")
+        assign(path.filing, :num, '1')
+        assign(path.filing, :audience, 'internal')
+      }.to_not raise_error
+    end
+
+    it "can assign formal title" do
+      path = @ead.eadheader.filedesc.titlestmt
+      expect {
+        assign(path, :formal, "#{title} ")
+        assign(path.formal, :num, '1')
+      }.to_not raise_error
+    end
+
     it "can assign author" do
       path = @ead.eadheader.filedesc.titlestmt
       expect {

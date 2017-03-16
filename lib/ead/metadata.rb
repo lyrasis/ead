@@ -32,10 +32,18 @@ module EAD
 
         t.filedesc {
           t.titlestmt {
+            t.author
             t.titleproper {
               t.num
             }
-            t.author
+            # titleproper options with type attribute
+            t.formal(path: "titleproper", attributes: { type: "formal" }) {
+              t.num
+            }
+            t.filing(path: "titleproper", attributes: { type: "filing" }) {
+              t.audience(path: { attribute: "audience" })
+              t.num
+            }
           }
 
           t.publicationstmt {

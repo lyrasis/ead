@@ -273,6 +273,19 @@ module EAD
         header_path.filedesc.titlestmt.titleproper.num = "#{number.to_s}" if number
       end
 
+      # TODO DRY
+      def set_filing_title(title, number = nil, separator = "")
+        header_path.filedesc.titlestmt.filing     = "#{title}#{separator}"
+        header_path.filedesc.titlestmt.filing.num = "#{number.to_s}" if number
+        header_path.filedesc.titlestmt.filing.audience = "internal"
+      end
+
+      # TODO DRY
+      def set_formal_title(title, number = nil, separator = "")
+        header_path.filedesc.titlestmt.formal     = "#{title}#{separator}"
+        header_path.filedesc.titlestmt.formal.num = "#{number.to_s}" if number
+      end
+
     end
 
   end
