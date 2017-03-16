@@ -174,9 +174,9 @@ module EAD
         end
         description_path.did.unitdate(pos).type   = nil
         description_path.did.unitdate(pos).type   = "inclusive"
-        d = "#{Date.parse(date).to_s}/#{Date.parse(date).to_s}" rescue nil
+        d = date.to_s
         description_path.did.unitdate(pos).normal = d
-        description_path.did.send(:unitdate, pos, date)
+        description_path.did.send(:unitdate, pos, d)
       end
 
       def unitid
