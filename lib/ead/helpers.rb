@@ -212,6 +212,14 @@ module EAD
         header_path.filedesc.publicationstmt.address.addressline = address
       end
 
+      def author
+        header_path.filedesc.titlestmt.author.first
+      end
+
+      def author=(author)
+        header_path.filedesc.titlestmt.author = author
+      end
+
       def descrules
         header_path.profiledesc.descrules.first
       end

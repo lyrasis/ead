@@ -35,6 +35,7 @@ module EAD
             t.titleproper {
               t.num
             }
+            t.author
           }
 
           t.publicationstmt {

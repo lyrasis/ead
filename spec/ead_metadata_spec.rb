@@ -23,7 +23,8 @@ describe "EAD Metadata" do
 
     let(:title) { "titleproper" }
     let(:title_terms) { [:eadheader, :filedesc, :titlestmt, :titleproper] }
-    
+    let(:author) { "Some Author" }
+
     let(:publisher) { "publisher" }
     let(:publisher_terms) { [:eadheader, :filedesc, :publicationstmt, :publisher] }
 
@@ -53,6 +54,13 @@ describe "EAD Metadata" do
       }.to_not raise_error
 
       expect(@ead.term_values(*title_terms)[0]).to match(title)
+    end
+
+    it "can assign author" do
+      path = @ead.eadheader.filedesc.titlestmt
+      expect {
+        assign(path, :author, author)
+      }.to_not raise_error
     end
 
     it "can assign publisher" do
