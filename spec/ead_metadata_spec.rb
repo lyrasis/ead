@@ -13,8 +13,10 @@ describe "EAD Metadata" do
 
   describe "ead" do
 
-    xit "creates a basic default record" do
-      # TODO
+    it "creates a basic default record" do
+      expect {
+        @ead.to_ead_xml
+      }.to_not raise_error
     end
 
   end
