@@ -202,6 +202,30 @@ module EAD
               }
             }
 
+            t.prefercite {
+              t.audience(path: { attribute: 'audience' })
+              t.head
+              t.p_
+            }
+
+            t.controlaccess {
+              t.subject {
+                t.source(path: { attribute: 'source' })
+              }
+              t.geogname {
+                t.source(path: { attribute: 'source' })
+              }
+              t.genreform {
+                t.source(path: { attribute: 'source' })
+              }
+              t.persname {
+                t.source(path: { attribute: 'source' })
+              }
+              t.corpname {
+                t.source(path: { attribute: 'source' })
+              }
+            }
+
             # c02 (same as c01)
             t.c02 {
               t.id(path: { attribute: 'id' })
@@ -243,6 +267,30 @@ module EAD
                   t.id(path: { attribute: 'id' })
                   t.label(path: { attribute: 'label' })
                   t.type(path: { attribute: 'type' })
+                }
+              }
+
+              t.prefercite {
+                t.audience(path: { attribute: 'audience' })
+                t.head
+                t.p_
+              }
+
+              t.controlaccess {
+                t.subject {
+                  t.source(path: { attribute: 'source' })
+                }
+                t.geogname {
+                  t.source(path: { attribute: 'source' })
+                }
+                t.genreform {
+                  t.source(path: { attribute: 'source' })
+                }
+                t.persname {
+                  t.source(path: { attribute: 'source' })
+                }
+                t.corpname {
+                  t.source(path: { attribute: 'source' })
                 }
               }
 
