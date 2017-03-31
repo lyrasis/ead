@@ -93,6 +93,7 @@ module EAD
             t.corpname
           }
 
+          t.abstract
           t.unitid
           t.unittitle
           t.unitdate {
@@ -164,7 +165,25 @@ module EAD
             t.level(path: { attribute: 'level' })
             t.otherlevel(path: { attribute: 'otherlevel' })
             t.did {
+              t.abstract
               t.unittitle
+              t.unitdate {
+                t.normal(path: { attribute: 'normal' })
+                t.type(path: { attribute: 'type' })
+              }
+
+              t.origination {
+                t.label(path: { attribute: 'label' })
+                t.persname {
+                  t.role(path: { attribute: 'role' })
+                  t.source(path: { attribute: 'source' })
+                }
+                t.corpname {
+                  t.role(path: { attribute: 'role' })
+                  t.source(path: { attribute: 'source' })
+                }
+              }
+
               t.physdesc {
                 t.altrender(path: { attribute: 'altrender' })
                 t.extent {
@@ -189,7 +208,26 @@ module EAD
               t.level(path: { attribute: 'level' })
               t.otherlevel(path: { attribute: 'otherlevel' })
               t.did {
+                t.abstract
                 t.unittitle
+
+                t.unitdate {
+                  t.normal(path: { attribute: 'normal' })
+                  t.type(path: { attribute: 'type' })
+                }
+
+                t.origination {
+                  t.label(path: { attribute: 'label' })
+                  t.persname {
+                    t.role(path: { attribute: 'role' })
+                    t.source(path: { attribute: 'source' })
+                  }
+                  t.corpname {
+                    t.role(path: { attribute: 'role' })
+                    t.source(path: { attribute: 'source' })
+                  }
+                }
+
                 t.physdesc {
                   t.altrender(path: { attribute: 'altrender' })
                   t.extent {
@@ -214,7 +252,26 @@ module EAD
                 t.level(path: { attribute: 'level' })
                 t.otherlevel(path: { attribute: 'otherlevel' })
                 t.did {
+                  t.abstract
                   t.unittitle
+
+                  t.unitdate {
+                    t.normal(path: { attribute: 'normal' })
+                    t.type(path: { attribute: 'type' })
+                  }
+
+                  t.origination {
+                    t.label(path: { attribute: 'label' })
+                    t.persname {
+                      t.role(path: { attribute: 'role' })
+                      t.source(path: { attribute: 'source' })
+                    }
+                    t.corpname {
+                      t.role(path: { attribute: 'role' })
+                      t.source(path: { attribute: 'source' })
+                    }
+                  }
+
                   t.physdesc {
                     t.altrender(path: { attribute: 'altrender' })
                     t.extent {
