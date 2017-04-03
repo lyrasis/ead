@@ -149,6 +149,14 @@ module EAD
         end
       end
 
+      def abstract
+        description_path.did.abstract.first
+      end
+
+      def abstract=(abstract)
+        description_path.did.abstract = abstract
+      end
+
       def prefercite
         description_path.prefercite.p.first
       end
