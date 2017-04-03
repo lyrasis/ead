@@ -133,6 +133,24 @@ module EAD
           t.p_
         }
 
+        t.accessrestrict {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
+        t.userestrict {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
+        t.bioghist {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
         t.relatedmaterial {
           t.audience(path: { attribute: 'audience' })
           t.head
@@ -208,6 +226,24 @@ module EAD
               t.p_
             }
 
+            t.accessrestrict {
+              t.audience(path: { attribute: 'audience' })
+              t.head
+              t.p_
+            }
+
+            t.userestrict {
+              t.audience(path: { attribute: 'audience' })
+              t.head
+              t.p_
+            }
+
+            t.bioghist {
+              t.audience(path: { attribute: 'audience' })
+              t.head
+              t.p_
+            }
+
             t.controlaccess {
               t.subject {
                 t.source(path: { attribute: 'source' })
@@ -271,6 +307,24 @@ module EAD
               }
 
               t.prefercite {
+                t.audience(path: { attribute: 'audience' })
+                t.head
+                t.p_
+              }
+
+              t.accessrestrict {
+                t.audience(path: { attribute: 'audience' })
+                t.head
+                t.p_
+              }
+
+              t.userestrict {
+                t.audience(path: { attribute: 'audience' })
+                t.head
+                t.p_
+              }
+
+              t.bioghist {
                 t.audience(path: { attribute: 'audience' })
                 t.head
                 t.p_

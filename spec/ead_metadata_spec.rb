@@ -267,6 +267,30 @@ describe "EAD Metadata" do
       }.to_not raise_error
     end
 
+    it "can assign access restriction" do
+      expect {
+        @ead.archdesc.accessrestrict.audience = "internal"
+        @ead.archdesc.accessrestrict.head = "Access Restriction"
+        @ead.archdesc.accessrestrict.p = "Restricted!"
+      }.to_not raise_error
+    end
+
+    it "can assign use restriction" do
+      expect {
+        @ead.archdesc.userestrict.audience = "internal"
+        @ead.archdesc.userestrict.head = "Use Restriction"
+        @ead.archdesc.userestrict.p = "Cannot physically handle!"
+      }.to_not raise_error
+    end
+
+    it "can assign access biographic / historical information" do
+      expect {
+        @ead.archdesc.bioghist.audience = "internal"
+        @ead.archdesc.bioghist.head = "Historical Summary"
+        @ead.archdesc.bioghist.p = "The history ..."
+      }.to_not raise_error
+    end
+
     it "can assign related material" do
       expect {
         @ead.archdesc.relatedmaterial.audience = "internal"
