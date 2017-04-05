@@ -11,7 +11,7 @@ module EAD
     # ead = EAD::Generator.new
     def initialize
       @ead             = EAD::Metadata.new
-      @components      = [] # c01 children
+      @components      = {} # c01 children
       @flat_components = {} # all descendent components
       @path            = @ead
     end
