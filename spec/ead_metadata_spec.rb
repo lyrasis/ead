@@ -144,7 +144,7 @@ describe "EAD Metadata" do
       ]
     }
     let(:corps) {
-[
+      [
         { name: "X", role: "pro", source: "lcsh" },
         { name: "Y", role: "pro", source: "lcsh" },
       ]
