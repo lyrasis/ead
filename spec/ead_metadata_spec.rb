@@ -367,10 +367,11 @@ describe "EAD Metadata" do
           end
            # initialize label b4 setting it
           expect {
-            @ead.archdesc.dsc.c01(0).did.container(pos).id    = nil
-            @ead.archdesc.dsc.c01(0).did.container(pos).id    = c[:id]
-            @ead.archdesc.dsc.c01(0).did.container(pos).label = "Mixed Materials (#{c[:barcode]})"
-            @ead.archdesc.dsc.c01(0).did.container(pos).type  = "Box"
+            @ead.archdesc.dsc.c01(0).did.container(pos).id        = nil
+            @ead.archdesc.dsc.c01(0).did.container(pos).id        = c[:id]
+            @ead.archdesc.dsc.c01(0).did.container(pos).label     = "Mixed Materials (#{c[:barcode]})"
+            @ead.archdesc.dsc.c01(0).did.container(pos).type      = "Box"
+            @ead.archdesc.dsc.c01(0).did.container(pos).altrender = "1 cf"
             @ead.archdesc.dsc.c01(0).did.send(:container, pos, c[:number])
           }.to_not raise_error
         end
