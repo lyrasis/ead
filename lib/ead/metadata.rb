@@ -217,6 +217,7 @@ module EAD
                 t.id(path: { attribute: 'id' })
                 t.label(path: { attribute: 'label' })
                 t.type(path: { attribute: 'type' })
+                t.altrender(path: { attribute: 'altrender' })
               }
             }
 
@@ -303,6 +304,7 @@ module EAD
                   t.id(path: { attribute: 'id' })
                   t.label(path: { attribute: 'label' })
                   t.type(path: { attribute: 'type' })
+                  t.altrender(path: { attribute: 'altrender' })
                 }
               }
 
@@ -389,6 +391,7 @@ module EAD
                     t.id(path: { attribute: 'id' })
                     t.label(path: { attribute: 'label' })
                     t.type(path: { attribute: 'type' })
+                    t.altrender(path: { attribute: 'altrender' })
                   }
                 }
 

@@ -6,12 +6,13 @@ module EAD
 
       # [ { id: "...", barcode: "...", number: "..." } ] OR
       # [ { id: "...", barcode: "...", number: "...", label_type: "...", type: "..." } ]
-      def add_containers(containers = [], label_type = "mixed_materials", type = "Box")
+      def add_containers(containers = [], label_type = "mixed_materials", type = "Box", profile = nil)
         containers.each do |c|
-          label = c.has_key?(:label_type) ? c[:label_type] : label_type
+          label   = c.has_key?(:label_type) ? c[:label_type] : label_type
           # aspace formatting gunk
-          label = "#{label} (#{c[:barcode]})" if c.has_key? :barcode
-          type  = c.has_key?(:type) ? c[:type] : type
+          label   = "#{label} (#{c[:barcode]})" if c.has_key? :barcode
+          type    = c.has_key?(:type) ? c[:type] : type
+          profile = c.has_key?(:profile) ? c[:profile] : profile
 
           pos = description_path.did.container.count
           if pos == 0
@@ -19,10 +20,11 @@ module EAD
             description_path.did.container.id = nil
           end
           # initialize id b4 setting it
-          description_path.did.container(pos).id    = nil
-          description_path.did.container(pos).id    = c[:id].to_s
-          description_path.did.container(pos).label = label
-          description_path.did.container(pos).type  = type
+          description_path.did.container(pos).id        = nil
+          description_path.did.container(pos).id        = c[:id].to_s
+          description_path.did.container(pos).label     = label
+          description_path.did.container(pos).type      = type
+          description_path.did.container(pos).altrender = profile if profile
           description_path.did.send(:container, pos, c[:number].to_s)
         end
       end
