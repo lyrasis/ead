@@ -159,6 +159,15 @@ module EAD
         description_path.did.abstract = abstract
       end
 
+      def accessrestrict
+        description_path.accessrestrict.p.first
+      end
+
+      def accessrestrict=(accessrestrict)
+        description_path.accessrestrict.head = "Access Restrictions"
+        description_path.accessrestrict.p = accessrestrict
+      end
+
       def prefercite
         description_path.prefercite.p.first
       end
@@ -203,6 +212,15 @@ module EAD
 
       def unittitle=(unittitle)
         description_path.did.unittitle = unittitle
+      end
+
+      def userestrict
+        description_path.userestrict.p.first
+      end
+
+      def userestrict=(userestrict)
+        description_path.userestrict.head = "Use Restrictions"
+        description_path.userestrict.p = userestrict
       end
 
       def set_language(language = "English", code = "eng")

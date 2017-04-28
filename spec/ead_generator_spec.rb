@@ -39,6 +39,20 @@ describe "EAD Generator" do
 
   end
 
+  describe "description" do
+
+    let(:accessrestrict) { "On premises use only." }
+    let(:userestrict) { "Requires staff supervision for access." }
+
+    it "can set access and use restrictions" do
+      @ead.accessrestrict = accessrestrict
+      @ead.userestrict    = userestrict
+      expect(@ead.accessrestrict).to eq(accessrestrict)
+      expect(@ead.userestrict).to eq(userestrict)
+    end
+
+  end
+
   describe "components" do
 
     let(:components) {
