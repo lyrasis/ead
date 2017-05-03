@@ -106,6 +106,7 @@ module EAD
             t.persname {
               t.role(path: { attribute: 'role' })
               t.source(path: { attribute: 'source' })
+              t.normal(path: { attribute: 'normal' })
             }
             t.corpname {
               t.role(path: { attribute: 'role' })
@@ -195,6 +196,7 @@ module EAD
                 t.persname {
                   t.role(path: { attribute: 'role' })
                   t.source(path: { attribute: 'source' })
+                  t.normal(path: { attribute: 'normal' })
                 }
                 t.corpname {
                   t.role(path: { attribute: 'role' })
@@ -282,6 +284,7 @@ module EAD
                   t.persname {
                     t.role(path: { attribute: 'role' })
                     t.source(path: { attribute: 'source' })
+                    t.normal(path: { attribute: 'normal' })
                   }
                   t.corpname {
                     t.role(path: { attribute: 'role' })
@@ -369,6 +372,7 @@ module EAD
                     t.persname {
                       t.role(path: { attribute: 'role' })
                       t.source(path: { attribute: 'source' })
+                      t.normal(path: { attribute: 'normal' })
                     }
                     t.corpname {
                       t.role(path: { attribute: 'role' })

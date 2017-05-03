@@ -130,6 +130,7 @@ module EAD
           path = description_path.did.origination(pos).send(o[:type])
           path.role = o[:role]
           path.source = o[:source]
+          path.normal = o[:normal] if o.has_key? :normal
         end
       end
 
