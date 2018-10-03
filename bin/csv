@@ -46,6 +46,7 @@ CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
   process_config(CSV_CONFIG, data)
 
   ead = EAD::Generator.new
+  ead.unitid     = data[:eadid]
   ead.eadid      = data[:eadid]
   ead.repository = data[:repository]
   ead.unittitle  = data[:unittitle]
