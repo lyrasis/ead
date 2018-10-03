@@ -187,6 +187,15 @@ module EAD
         description_path.prefercite.p = prefercite
       end
 
+      def processinfo
+        description_path.processinfo.p.first
+      end
+
+      def processinfo=(processinfo)
+        description_path.processinfo.head = "Processing Information"
+        description_path.processinfo.p = processinfo
+      end
+
       def repository
         description_path.did.repository.corpname.first
       end

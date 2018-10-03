@@ -152,6 +152,12 @@ module EAD
           t.p_
         }
 
+        t.processinfo {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
         t.relatedmaterial {
           t.audience(path: { attribute: 'audience' })
           t.head
