@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "csv"
+require "ead"
+
+# Generate EAD records from CSV [example]
+
+CSV_CONFIG = [
+  eadid: { required: true, default: nil },
+  repository: { required: true, default: nil },
+  unittitle: { required: true, default: nil },
+  unitdate: { required: false, default: 'undated' },
+  extent1: { required: false, default: nil },
+  extent2: { required: false, default: nil },
+  origination: { required: false, default: nil },
+  scopecontent: { required: true, default: nil },
+  controlaccess1: { required: false, default: nil },
+  controlaccess2: { required: false, default: nil },
+  arrangement: { required: false, default: nil },
+  processinfo: { required: false, default: nil },
+  note: { required: false, default: nil },
+]
+
+csv = ARGV[0]
+raise "File not found: #{csv}" unless File.file? csv
+output_dir = 'out'
+FileUtils.mkdir_p output_dir
+
+def origination_type(origination)
+  origination =~ /,/ ? 'persname' : 'corpname'
+end
+
+def process_config(config, data)
+  config.each do |field|
+    if field[:required] and !data[field]
+      raise "Required data missing: #{field} - #{data}"
+    end
+    data[field] = field[:default] unless data[field]
+    data[field] = data[field].strip if data[field]
+  end
+end
+
+CSV.foreach(csv, headers: true, header_converters: :symbol) do |row|
+  data = row.to_hash
+  process_config(CSV_CONFIG, data)
+
+  ead = EAD::Generator.new
+  ead.eadid      = data[:eadid]
+  ead.repository = data[:repository]
+  ead.unittitle  = data[:unittitle]
+  ead.unitdate   = data[:unitdate]
+
+  ead.add_extent(data[:extent1]) if data[:extent1]
+  ead.add_extent(data[:extent2]) if data[:extent2]
+
+  originations = []
+  originations << {
+    type: origination_type(data[:origination]),
+    name: data[:origination],
+    role: "pro",
+    source: "local"
+  } if data[:origination]
+  ead.add_originations(originations) if originations.any?
+
+  ead.scopecontent = data[:scopecontent]
+
+  subjects = []
+  [:controlaccess1, :controlaccess2].each do |controlaccess|
+    subjects << {
+      type: 'subject',
+      name: data[controlaccess],
+      source: 'local',
+    } if data[controlaccess]
+  end
+  ead.add_authorities(subjects)
+
+  ead.arrangement = data[:arrangement] if data[:arrangement]
+  ead.processinfo = data[:processinfo] if data[:processinfo]
+  ead.add_odds [ { 'General Note' => data[:note] } ] if data[:note]
+
+  File.open(File.join(output_dir, "#{data[:eadid]}.xml"), 'w') do |f|
+    f.write ead.to_xml
+  end
+end
