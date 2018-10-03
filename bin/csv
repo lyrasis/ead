@@ -6,7 +6,7 @@ require "ead"
 
 # Generate EAD records from CSV [example]
 
-CSV_CONFIG = [
+CSV_CONFIG = {
   eadid: { required: true, default: nil },
   repository: { required: true, default: nil },
   unittitle: { required: true, default: nil },
@@ -20,7 +20,7 @@ CSV_CONFIG = [
   arrangement: { required: false, default: nil },
   processinfo: { required: false, default: nil },
   note: { required: false, default: nil },
-]
+}
 
 csv = ARGV[0]
 raise "File not found: #{csv}" unless File.file? csv
@@ -32,11 +32,11 @@ def origination_type(origination)
 end
 
 def process_config(config, data)
-  config.each do |field|
-    if field[:required] and !data[field]
+  config.each do |field, f_config|
+    if f_config[:required] and !data[field]
       raise "Required data missing: #{field} - #{data}"
     end
-    data[field] = field[:default] unless data[field]
+    data[field] = f_config[:default] if data[field].nil?
     data[field] = data[field].strip if data[field]
   end
 end
