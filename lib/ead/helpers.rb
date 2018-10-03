@@ -169,6 +169,15 @@ module EAD
         description_path.accessrestrict.p = accessrestrict
       end
 
+      def arrangement
+        description_path.arrangement.p.first
+      end
+
+      def arrangement=(arrangement)
+        description_path.arrangement.head = "Arrangement"
+        description_path.arrangement.p = arrangement
+      end
+
       def prefercite
         description_path.prefercite.p.first
       end
@@ -178,6 +187,14 @@ module EAD
         description_path.prefercite.p = prefercite
       end
 
+      def repository
+        description_path.did.repository.corpname.first
+      end
+
+      def repository=(repository)
+        description_path.did.repository.corpname = repository
+      end
+
       def scopecontent
         description_path.scopecontent.p.first
       end
@@ -185,14 +202,6 @@ module EAD
       def scopecontent=(scopecontent)
         description_path.scopecontent.head = "Scope and Content"
         description_path.scopecontent.p = scopecontent
-      end
-
-      def repository
-        description_path.did.repository.corpname.first
-      end
-
-      def repository=(repository)
-        description_path.did.repository.corpname = repository
       end
 
       def unitdate=(date)

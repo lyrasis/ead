@@ -122,6 +122,24 @@ module EAD
           }
         }
 
+        t.accessrestrict {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
+        t.arrangement {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
+        t.bioghist {
+          t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
         t.odd {
           t.audience(path: { attribute: 'audience' })
           t.head
@@ -134,13 +152,7 @@ module EAD
           t.p_
         }
 
-        t.accessrestrict {
-          t.audience(path: { attribute: 'audience' })
-          t.head
-          t.p_
-        }
-
-        t.userestrict {
+        t.relatedmaterial {
           t.audience(path: { attribute: 'audience' })
           t.head
           t.p_
@@ -153,13 +165,7 @@ module EAD
           t.p_
         }
 
-        t.bioghist {
-          t.audience(path: { attribute: 'audience' })
-          t.head
-          t.p_
-        }
-
-        t.relatedmaterial {
+        t.userestrict {
           t.audience(path: { attribute: 'audience' })
           t.head
           t.p_
