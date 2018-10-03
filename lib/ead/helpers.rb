@@ -178,6 +178,15 @@ module EAD
         description_path.prefercite.p = prefercite
       end
 
+      def scopecontent
+        description_path.scopecontent.p.first
+      end
+
+      def scopecontent=(scopecontent)
+        description_path.scopecontent.head = "Scope and Content"
+        description_path.scopecontent.p = scopecontent
+      end
+
       def repository
         description_path.did.repository.corpname.first
       end

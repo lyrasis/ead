@@ -20,7 +20,7 @@ module EAD
         "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance",
         "xsi:schemaLocation" => "urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd"
       )
-      
+
       # eadheader
       t.eadheader(attributes: {
         countryencoding: "iso3166-1",
@@ -142,6 +142,13 @@ module EAD
 
         t.userestrict {
           t.audience(path: { attribute: 'audience' })
+          t.head
+          t.p_
+        }
+
+        t.scopecontent {
+          t.audience(path: { attribute: 'audience' })
+          t.encodinganalog(path: { attribute: 'encodinganalog' })
           t.head
           t.p_
         }
